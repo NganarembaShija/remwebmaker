@@ -1,4 +1,4 @@
-echo -e "##################\n   REM SCRIPT\n##################\n"
+echo -e "##################\n   REM WEBMAKER\n##################\n"
 linux=0
 android=1
 ################### INSTALLING CURL ################
