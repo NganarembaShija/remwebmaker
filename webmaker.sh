@@ -1,7 +1,7 @@
 clear
 read -n1 -p $'Press 0 to update or press any key to continue: ' any
 if [ $any -eq 0 ]; then
-   if [ $($PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
+   if [ $(echo $PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
      cd ..
      rm -rf remwebmaker
    fi
