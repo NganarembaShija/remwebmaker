@@ -218,6 +218,7 @@ EOF
 sed -i 's/REMCODE/$_SESSION["msg"]/g' $folderName/index.php
 cat <<- 'EOF' >> $folderName/x.php
 <?php 
+    session_start();
     session_unset();
     session_destroy();
     header("Location: index.php");
