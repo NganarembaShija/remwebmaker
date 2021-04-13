@@ -97,6 +97,8 @@ cat <<- EOF >> $folderName/index.php
 ?>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.9">
+
         <title>$title</title>
         <script type="text/javascript">
             function check()
