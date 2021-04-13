@@ -53,15 +53,23 @@ if [ $(dpkg -s tar | wc -l) -eq 0 ] || [ $(dpkg -s unzip | wc -l) -eq 0 ]; then
 fi
 
 if [ $device -eq $linux ]; then
-    echo -e "\nExtracting ngrok...\n"
-    unzip ngrok-stable-linux-amd64.zip
-    chmod +x ngrok
-    cp ngrok $HOME/bin/ngrok
+    if [ -e "$HOME/bin/ngrok" ]; then
+        echo "ngrok present"
+    else
+        echo -e "\nExtracting ngrok...\n"
+        unzip ngrok-stable-linux-amd64.zip
+        chmod +x ngrok
+        cp ngrok $HOME/bin/ngrok
+    fi
 else
-    echo -e "\nExtracting ngrok...\n"
-    tar -xzf  ngrok-stable-linux-arm64.tgz
-    chmod +x ngrok
-    cp ngrok $HOME/bin/ngrok
+    if [ -e "$HOME/bin/ngrok" ]; then
+        echo "ngrok present"
+    else
+        echo -e "\nExtracting ngrok...\n"
+        tar -xzf  ngrok-stable-linux-arm64.tgz
+        chmod +x ngrok
+        cp ngrok $HOME/bin/ngrok
+    fi
 fi
 if [ -e "$HOME/.ngrok2/ngrok.yml" ]; then
     echo -e "ngrok --> \e[1;92mOK\e[0m"
