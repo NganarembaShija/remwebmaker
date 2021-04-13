@@ -274,7 +274,7 @@ sleep 10
 link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
 
 if [ $link ]; then
-    echo -e "\e[1;94m$link\e[0m"
+    echo -e "\nYour Webpage Link\n---> \e[1;94m$link\e[0m"
 else
     echo -e "\e[1;91mERROR link cannot be created\e[0m"
 fi
