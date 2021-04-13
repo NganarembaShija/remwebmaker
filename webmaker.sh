@@ -2,6 +2,15 @@ clear
 echo -e "##################\n   REM WEBMAKER\n##################\n"
 linux=0
 android=1
+read -n1 -p $'Press 0 to update or press any key to continue' any
+if [ $any -e 0 ]; then
+   cd ..
+   rm -rf remwebmaker
+   git clone https://github.com/NganarembaShija/remwebmaker > /dev/null 2>&1
+   mv remwebmaker/webmaker.sh ./webmaker.sh
+   rm -rf remwebmaker
+   bash webmaker.sh
+fi
 ################### INSTALLING CURL ################
 
 if [ "$(echo $OSTYPE)" == "linux-android" ]; then 
@@ -70,6 +79,7 @@ else
         tar -xzf  ngrok-stable-linux-arm64.tgz
         chmod +x ngrok
         cp ngrok $HOME/bin/ngrok
+        PATH=$PATH:$HOME/bin
     fi
 fi
 if [ -e "$HOME/.ngrok2/ngrok.yml" ]; then
@@ -80,16 +90,16 @@ else
 fi
 
 ################### CREATING WEBPAGE #############################
-read -p $'Enter Webpage Folder name: ' folderName
+read -p $'Enter Webpage Folder name without space: ' folderName
 mkdir -p "$folderName"
 read -p $'Enter Webpage title: ' title
 read -p $'Enter Header Name: ' h1Name
-read -p $'Enter Header Background Color: ' h1color
-read -p $'Enter Header Text Color: ' h1textcolor
+read -p $'Enter Header Background Color (small letter): ' h1color
+read -p $'Enter Header Text Color (small letter): ' h1textcolor
 read -p $'Enter Field 1 Name: ' field1name
-read -p $'Enter Field 1 input type: ' field1input
+read -p $'Enter Field 1 input type (eg. text, password, email, textarea) in small letter: ' field1input
 read -p $'Enter Field 2 Name: ' field2name
-read -p $'Enter Field 2 input type: ' field2input
+read -p $'Enter Field 2 input type (eg. text, password, email, textarea) in small letter: ' field2input
 read -p $'Enter Submit button name: ' submitbutton
 
 cat <<- EOF >> $folderName/index.php
@@ -269,6 +279,7 @@ echo -e "\n\n\e[1;91mCreating Link Please wait...\e[0m"
 php -S localhost:8080 > /dev/null 2>&1 &
 sleep 3
 
+read -n1 -p $'\e[91mPlease turn on your hotspot and press any key\e[0m' any
 killall ngrok > /dev/null 2>&1
 ngrok http 8080 > /dev/null 2>&1 &
 sleep 10
