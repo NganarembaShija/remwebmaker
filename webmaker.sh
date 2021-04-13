@@ -226,7 +226,6 @@ cat <<- 'EOF' >> $folderName/post.php
         fwrite($handle, $value);
         fwrite($handle, "\r\n");
     }
-    fwrite("\r\n");
     fclose($handle);
     header("Location: index.php");
 
