@@ -1,17 +1,18 @@
+clear
 echo -e "##################\n   REM WEBMAKER\n##################\n"
 linux=0
 android=1
 ################### INSTALLING CURL ################
 
 if [ "$(echo $OSTYPE)" == "linux-android" ]; then 
-    echo -e "\e[1;91m Device: \e[1;92m Android\e[0m"
+    echo -e "\e[1;91m SYSTEM: \e[1;92m Android\e[0m"
     device=$android
     if [ $(dpkg -s curl | wc -l) -eq 0 ]; then
         echo -e "\nInstalling curl...\n"
          yes | apt install curl
     fi
 elif [ "$(echo $OSTYPE)" == "linux-gnu" ]; then
-    echo -e "\e[1;91m Device: \e[1;92m Linux\e[0m"
+    echo -e "\e[1;91m SYSTEM: \e[1;92m Linux\e[0m"
     device=$linux
     if [ $(dpkg -s curl | wc -l) -eq 0 ]; then
         echo -e "\nInstalling curl...\n"
