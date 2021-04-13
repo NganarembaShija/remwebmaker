@@ -1,16 +1,20 @@
 clear
-echo -e "##################\n   REM WEBMAKER\n##################\n"
-linux=0
-android=1
-read -n1 -p $'Press 0 to update or press any key to continue' any
-if [ $any -e 0 ]; then
-   cd ..
-   rm -rf remwebmaker
+read -n1 -p $'Press 0 to update or press any key to continue: ' any
+if [ $any -eq 0 ]; then
+   if [ $($PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
+     cd ..
+     rm -rf remwebmaker
+   fi
    git clone https://github.com/NganarembaShija/remwebmaker > /dev/null 2>&1
    mv remwebmaker/webmaker.sh ./webmaker.sh
    rm -rf remwebmaker
    bash webmaker.sh
 fi
+clear
+echo -e "##################\n   REM WEBMAKER\n##################\n"
+linux=0
+android=1
+
 ################### INSTALLING CURL ################
 
 if [ "$(echo $OSTYPE)" == "linux-android" ]; then 
