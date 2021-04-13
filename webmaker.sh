@@ -283,7 +283,8 @@ echo -e "\n\n\e[1;91mCreating Link Please wait...\e[0m"
 php -S localhost:8080 > /dev/null 2>&1 &
 sleep 3
 
-read -n1 -p $'\e[91mPlease turn on your hotspot and press any key\e[0m' any
+read -n1 -p $'\n\n\e[92mPlease turn on your hotspot and press any key\e[0m' any
+echo -e "\nPlease wait 10sec\n"
 killall ngrok > /dev/null 2>&1
 ngrok http 8080 > /dev/null 2>&1 &
 sleep 10
