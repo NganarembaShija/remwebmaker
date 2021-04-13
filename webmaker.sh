@@ -30,7 +30,7 @@ PATH=$PATH:$HOME/bin
 
 ################### DOWNLOADING NGROK #################
 if [ -e "$HOME/ngrok" ] || [ -e "./ngrok" ] || [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ]; then
-    echo "ngrok Present"
+    echo ""
 else
     if [ $device -eq $linux ]; then
        echo -e "\nDownloading ngrok for linux. Please wait...\n"
