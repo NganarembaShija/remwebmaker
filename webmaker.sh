@@ -1,15 +1,16 @@
 update(){
       clear
       read -n1 -p $'\e[1;91mPress 0 to update or \e[1;92mpress any key to continue: \e[0m' any
-      if [ "$any" == "0" ]; then
+      if [ $any == 0 ]; then
          if [ $(echo $PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
-           cd ..
+           cd ../
            rm -rf remwebmaker
          fi
-         git clone https://github.com/NganarembaShija/remwebmaker &> /dev/null
+         echo -e "\n\e[95m------ Updating ------\e[0m\n"
+         git clone https://github.com/NganarembaShija/remwebmaker
          mv remwebmaker/webmaker.sh ./webmaker.sh
          rm -rf remwebmaker
-         read -n1 -p $'\n\e[1;92mUpdated Successfully\n\nPress any key to run the script again\e[0m' any
+         read -n1 -p $'\n\n\n\e[1;92mUpdated Successfully\n\nPress any key to run the script again\e[0m' any
          bash webmaker.sh
       fi
 }
@@ -27,7 +28,7 @@ packageCheck(){
       else
          status=1
       fi
-    fi
+   fi
    if [ $2 ]; then
       dpkg -s $2 &>/dev/null
       if [ $? -ne 0 ]; then
@@ -85,7 +86,7 @@ if [ $? -ne 0 ]; then
       fi
       EOF
 fi
-
+echo 89
 ################### DOWNLOADING NGROK #################
 if [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ] || [ -e "./ngrok-stable-linux-amd64.zip" ]; then
     echo ""
@@ -136,7 +137,7 @@ else
     read -p $'Enter your ngrok token here:\n' token
     ngrok authtoken $token
 fi
-
+echo 140
 ################### CREATING WEBPAGE #############################
 read -p $'Enter Webpage Folder name without space: ' folderName
 mkdir -p "$folderName"
