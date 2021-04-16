@@ -9,9 +9,9 @@ update(){
          git clone https://github.com/NganarembaShija/remwebmaker &> /dev/null
          mv remwebmaker/webmaker.sh ./webmaker.sh
          rm -rf remwebmaker
+         read -n1 -p $'\n\e[1;92mUpdated Successfully\n\nPress any key to run the script again\e[0m' any
          bash webmaker.sh
       fi
-      read -n1 -p $'\n\e[1;92mUpdated Successfully\n\nPress any key to run the script again\e[0m' any
 }
 update
 clear
