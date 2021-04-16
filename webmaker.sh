@@ -341,7 +341,3 @@ bash run.sh
 echo -e "\n\n\n####################\n   Tracking Input\n####################\n"
 touch file.txt
 tail -f file.txt | grep -e "$field1name" -e "$field2name"
-
-
-
-
