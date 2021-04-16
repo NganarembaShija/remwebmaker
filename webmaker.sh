@@ -86,6 +86,7 @@ if [ $? -ne 0 ]; then
       PATH=$PATH:$HOME/bin
       fi" >> $HOME/.profile
 fi
+PATH=$PATH:$HOME/bin
 ################### DOWNLOADING NGROK #################
 if [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ] || [ -e "./ngrok-stable-linux-amd64.zip" ]; then
     echo ""
