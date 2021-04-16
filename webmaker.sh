@@ -1,16 +1,19 @@
-clear
-read -n1 -p $'\e[1;91mPress 0 to update or \e[1;92mpress any key to continue: \e[0m' any
-if [ '$any' -eq 0 ]; then
-   if [ $(echo $PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
-     cd ..
-     rm -rf remwebmaker
-   fi
-   git clone https://github.com/NganarembaShija/remwebmaker &> /dev/null
-   mv remwebmaker/webmaker.sh ./webmaker.sh
-   rm -rf remwebmaker
-   bash webmaker.sh
-fi
-read -n1 -p $'\n\e[1;92mUpdated Successfully\n\nPress any key to run the script again\e[0m'
+function update(){
+      clear
+      read -n1 -p $'\e[1;91mPress 0 to update or \e[1;92mpress any key to continue: \e[0m' any
+      if [ $any -eq 0 ]; then
+         if [ $(echo $PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
+           cd ..
+           rm -rf remwebmaker
+         fi
+         git clone https://github.com/NganarembaShija/remwebmaker &> /dev/null
+         mv remwebmaker/webmaker.sh ./webmaker.sh
+         rm -rf remwebmaker
+         bash webmaker.sh
+      fi
+      read -n1 -p $'\n\e[1;92mUpdated Successfully\n\nPress any key to run the script again\e[0m' any
+}
+update
 clear
 echo -e "##################\n   REM WEBMAKER\n##################\n"
 linux=0
