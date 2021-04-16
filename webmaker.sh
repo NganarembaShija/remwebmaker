@@ -1,7 +1,7 @@
-function update(){
+update(){
       clear
       read -n1 -p $'\e[1;91mPress 0 to update or \e[1;92mpress any key to continue: \e[0m' any
-      if [ $any -eq 0 ]; then
+      if [ "$any" == "0" ]; then
          if [ $(echo $PWD | grep "remwebmaker" | wc -l) -gt 0 ]; then
            cd ..
            rm -rf remwebmaker
