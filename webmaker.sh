@@ -77,15 +77,12 @@ else
       mkdir -p "$HOME/bin"
       echo -e "\e[1;92mBin Created\e[0m";
 fi
-echo 80
+
 cat $HOME/.profile | grep -w '$HOME/bin' &>/dev/null
-echo 82
 if [ $? -ne 0 ]; then
-      cat <<- 'EOF' >> $HOME/.profile
-      if [ -e "$HOME/bin" ]; then
+      echo "if [ -e "$HOME/bin" ]; then
       PATH=$PATH:$HOME/bin
-      fi
-      EOF
+      fi" >> $HOME/.profile
 fi
 ################### DOWNLOADING NGROK #################
 if [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ] || [ -e "./ngrok-stable-linux-amd64.zip" ]; then
