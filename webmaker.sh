@@ -5,7 +5,7 @@ if [ $any -eq 0 ]; then
      cd ..
      rm -rf remwebmaker
    fi
-   git clone https://github.com/NganarembaShija/remwebmaker > /dev/null 2>&1
+   git clone https://github.com/NganarembaShija/remwebmaker &> /dev/null
    mv remwebmaker/webmaker.sh ./webmaker.sh
    rm -rf remwebmaker
    bash webmaker.sh
@@ -14,22 +14,49 @@ clear
 echo -e "##################\n   REM WEBMAKER\n##################\n"
 linux=0
 android=1
+ ############################### Functions #####################
+packageCheck(){
+   if [ $1 ]; then
+      dpkg -s $1 &>/dev/null
+      if [ $? -ne 0 ]; then
+         status=0
+      else
+         status=1
+      fi
+    fi
+   if [ $2 ]; then
+      dpkg -s $2 &>/dev/null
+      if [ $? -ne 0 ]; then
+         status2=0
+      else
+         status2=1
+      fi
+   fi
+}
 
+linuxInstall(){
+   yes | sudo apt install $1
+}
+
+androidInstall(){
+   yes | pkg install $1
+}
 ################### INSTALLING CURL ################
-
-if [ "$(echo $OSTYPE)" == "linux-android" ]; then 
+ if [ "$(echo $OSTYPE)" == "linux-android" ]; then 
     echo -e "\e[1;91m SYSTEM: \e[1;92m Android\e[0m"
     device=$android
-    if [ $(dpkg -s curl | wc -l) -eq 0 ]; then
+    packageCheck curl
+    if [ $status -eq 0 ]; then
         echo -e "\nInstalling curl...\n"
-         yes | apt install curl
+         androidInstall curl
     fi
 elif [ "$(echo $OSTYPE)" == "linux-gnu" ]; then
     echo -e "\e[1;91m SYSTEM: \e[1;92m Linux\e[0m"
     device=$linux
-    if [ $(dpkg -s curl | wc -l) -eq 0 ]; then
+    packageCheck curl
+    if [ $status -eq 0 ]; then
         echo -e "\nInstalling curl...\n"
-        yes | sudo apt install curl
+        linuxInstall curl
     fi
 else
      echo "Device Unknown"
@@ -39,8 +66,16 @@ fi
 ################## ADDING BIN TO PATH #####################
 
 echo -e "\nSetting BIN\n"
-[ -e "$HOME/bin" ] && echo "BIN Present" || mkdir -p "$HOME/bin";
-PATH=$PATH:$HOME/bin
+[ -e "$HOME/bin" ] && echo "BIN Present" || mkdir -p "$HOME/bin"; echo -e "\e[1;92mBin Created\e[0m";
+
+cat .profile | grep -w '$HOME/bin' &>/dev/null
+if [ $? -ne 0 ]; then
+      cat <<- 'EOF' >> $HOME/.profile
+      if [ -e "$HOME/bin" ]; then
+      PATH=$PATH:$HOME/bin
+      fi
+      EOF
+fi
 
 ################### DOWNLOADING NGROK #################
 if [ -e "$HOME/ngrok" ] || [ -e "./ngrok" ] || [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ]; then
@@ -54,15 +89,16 @@ else
         curl -# -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm64.tgz
     fi
 fi
-if [ $(dpkg -s tar | wc -l) -eq 0 ] || [ $(dpkg -s unzip | wc -l) -eq 0 ]; then
+packageCheck tar zip
+if [ $status -eq 0 ] || [ $status2 -eq 0 ]; then
     if [ $device -eq $android ]; then
      echo -e "\nInstalling tar or unzip...\n"
-     yes | apt install tar
-     yes | apt install unzip
+     androidInstall tar
+     androidInstall zip
     elif [ $device -eq $linux ]; then
         echo -e "\nInstalling tar or unzip...\n"
-        yes | sudo apt install tar
-        yes | sudo apt install unzip
+        linuxInstall tar
+        linuxInstall zip
     fi
 fi
 
@@ -83,11 +119,10 @@ else
         tar -xzf  ngrok-stable-linux-arm64.tgz
         chmod +x ngrok
         cp ngrok $HOME/bin/ngrok
-        PATH=$PATH:$HOME/bin
     fi
 fi
 if [ -e "$HOME/.ngrok2/ngrok.yml" ]; then
-    echo -e "ngrok --> \e[1;92mOK\e[0m"
+    echo -e "ngrok yml config --> \e[1;92mOK\e[0m"
 else
     read -p $'Enter your ngrok token here:\n' token
     ngrok authtoken $token
@@ -261,14 +296,14 @@ cat <<- 'EOF' >> $folderName/post.php
 EOF
 
 ############### INSTALLING PHP ########################
-
-if [ $(dpkg -s php | wc -l) -eq 0 ]; then
-    if [ $device -eq 0 ]; then
+packageCheck php
+if [ $status -eq 0 ]; then
+    if [ $device -eq $linux ]; then
     echo -e "\nInstalling php...\n"
-        yes | sudo apt install php 
-    elif [ $device -eq 1 ]; then
+        linuxInstall php
+    elif [ $device -eq $android ]; then
     echo -e "\nInstalling php...\n"
-        yes | apt install php
+        androidInstall php
     fi
 fi
 
@@ -294,7 +329,7 @@ link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*
 if [ $link ]; then
     echo -e "\nYour Webpage Link\n---> \e[1;94m$link\e[0m"
 else
-    echo -e "\e[1;91mERROR link cannot be created\e[0m"
+    echo -e "\e[1;91mERROR! link cannot be created. Please force stop your terminal and try again.\e[0m"
 fi
 EOF
 cd "$loc"
