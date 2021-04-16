@@ -77,7 +77,9 @@ else
       mkdir -p "$HOME/bin"
       echo -e "\e[1;92mBin Created\e[0m";
 fi
-
+if [ ! -e "$HOME/.profile" ]; then
+      touch $HOME/.profile
+fi
 cat $HOME/.profile | grep -w '$HOME/bin' &>/dev/null
 if [ $? -ne 0 ]; then
       echo "if [ -e "$HOME/bin" ]; then
