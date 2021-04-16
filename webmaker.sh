@@ -72,7 +72,7 @@ fi
 echo -e "\nSetting BIN\n"
 [ -e "$HOME/bin" ] && echo "BIN Present" || mkdir -p "$HOME/bin"; echo -e "\e[1;92mBin Created\e[0m";
 
-cat .profile | grep -w '$HOME/bin' &>/dev/null
+cat $HOME/.profile | grep -w '$HOME/bin' &>/dev/null
 if [ $? -ne 0 ]; then
       cat <<- 'EOF' >> $HOME/.profile
       if [ -e "$HOME/bin" ]; then
