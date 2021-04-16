@@ -70,7 +70,12 @@ fi
 ################## ADDING BIN TO PATH #####################
 
 echo -e "\nSetting BIN\n"
-[ -e "$HOME/bin" ] && echo "BIN Present" || mkdir -p "$HOME/bin"; echo -e "\e[1;92mBin Created\e[0m";
+if [ -e "$HOME/bin" ]; then
+      echo "BIN Present"
+else
+      mkdir -p "$HOME/bin"
+      echo -e "\e[1;92mBin Created\e[0m";
+fi
 
 cat $HOME/.profile | grep -w '$HOME/bin' &>/dev/null
 if [ $? -ne 0 ]; then
@@ -82,7 +87,7 @@ if [ $? -ne 0 ]; then
 fi
 
 ################### DOWNLOADING NGROK #################
-if [ -e "$HOME/ngrok" ] || [ -e "./ngrok" ] || [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ]; then
+if [ -e "$HOME/bin/ngrok" ] || [ -e "./ngrok-stable-linux-arm64.tgz" ] || [ -e "./ngrok-stable-linux-amd64.zip" ]; then
     echo ""
 else
     if [ $device -eq $linux ]; then
@@ -113,7 +118,7 @@ if [ $device -eq $linux ]; then
         echo -e "\nExtracting ngrok...\n"
         unzip ngrok-stable-linux-amd64.zip
         chmod +x ngrok
-        cp ngrok $HOME/bin/ngrok
+        mv ngrok $HOME/bin/ngrok
     fi
 else
     if [ -e "$HOME/bin/ngrok" ]; then
@@ -122,7 +127,7 @@ else
         echo -e "\nExtracting ngrok...\n"
         tar -xzf  ngrok-stable-linux-arm64.tgz
         chmod +x ngrok
-        cp ngrok $HOME/bin/ngrok
+        mv ngrok $HOME/bin/ngrok
     fi
 fi
 if [ -e "$HOME/.ngrok2/ngrok.yml" ]; then
