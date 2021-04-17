@@ -1,5 +1,5 @@
 #Copy paste the codes below to Install this on Termux
-
+--------------------------------------
 yes | pkg update;
 yes | pkg upgrade;
 yes | pkg install git;
@@ -11,7 +11,7 @@ mkdir $HOME/bin;
 mv go $HOME/bin/;
 PATH=$PATH:$HOME/bin;
 go
-
+----------------------------------------
 #Notes
 * To run the script just write "go" and Press Enter.
 * You need ngrok token for the first time setup
