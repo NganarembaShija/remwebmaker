@@ -1,15 +1,15 @@
 #Copy paste the codes below to Install this on Termux
 
-yes | pkg update
-yes | pkg upgrade
-yes | pkg install git
-git clone https://github.com/NganarembaShija/remwebmaker
-cd remwebmaker
-mv webmaker.sh go
-chmod +x go
-mkdir $HOME/bin
-mv go $HOME/bin/
-PATH=$PATH:$HOME/bin
+yes | pkg update;
+yes | pkg upgrade;
+yes | pkg install git;
+git clone https://github.com/NganarembaShija/remwebmaker;
+cd remwebmaker;
+mv webmaker.sh go;
+chmod +x go;
+mkdir $HOME/bin;
+mv go $HOME/bin/;
+PATH=$PATH:$HOME/bin;
 go
 
 #Notes
