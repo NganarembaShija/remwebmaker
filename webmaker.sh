@@ -140,7 +140,20 @@ else
     ngrok authtoken $token
 fi
 ################### CREATING WEBPAGE #############################
-read -p $'Enter Webpage Folder name without space: ' folderName
+makefol(){
+	read -p $'Enter Webpage Folder name without space: ' folderName
+	if [ -e "$folderName" ]; then
+	echo "Ops! Folder Name already exist"
+		fol=1
+	else
+		fol=0
+	fi
+}
+makefol
+while [ $fol -eq 1 ]
+do
+	makefol
+done
 mkdir -p "$folderName"
 read -p $'Enter Webpage title: ' title
 read -p $'Enter Header Name: ' h1Name
